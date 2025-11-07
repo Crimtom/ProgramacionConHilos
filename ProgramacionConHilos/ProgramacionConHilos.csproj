@@ -49,24 +49,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ENTIDADES\CLASE_POBLACION.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="LOGICA\CLASE_UTILIDAD.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="PROGRAM_MAIN.cs">
+    <Compile Include="PRESENTACION\PROGRAM_MAIN.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PROGRAM_MAIN.Designer.cs">
+    <Compile Include="PRESENTACION\PROGRAM_MAIN.Designer.cs">
       <DependentUpon>PROGRAM_MAIN.cs</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PROGRAM_MAIN.resx">
+    <EmbeddedResource Include="PRESENTACION\PROGRAM_MAIN.resx">
       <DependentUpon>PROGRAM_MAIN.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -91,5 +93,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
