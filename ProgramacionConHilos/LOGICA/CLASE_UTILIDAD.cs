@@ -50,5 +50,10 @@ namespace ProgramacionConHilos.LOGICA
         {
             MessageBox.Show(Mensaje, "¡Atención!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
+
+        public void prueba()
+        {
+            MessageBox.Show("Prueba");
+        }
     }
 }
