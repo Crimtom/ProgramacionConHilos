@@ -80,13 +80,35 @@ namespace ProgramacionConHilos
             catch (Exception ex)
             {
                 MessageBox.Show("Se ha producido un error tras intentar cerrar el programa: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }  
+            }
         }
 
         private void BT_CARGAR_Click(object sender, EventArgs e)
         {
             Leer_Archivo();
             Llenar_DataGrid_P();
+            MessageBox.Show("DataGrid Principal cargado satisfactoriamente", "DataGrid Principal", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            Obj_T1 = new Thread(new ThreadStart(Llenar_DataGrid_E));
+            Obj_T2 = new Thread(new ThreadStart(Llenar_DataGrid_ET));
+
+            if (!Obj_T1.IsAlive)
+            {
+                Obj_T1.Start();
+            }
+            else
+            {
+                MessageBox.Show("El hilo de agrupar según sexo y grupo estario ya se está ejecutando. ID: " + Obj_T1.ManagedThreadId, "Hilo en Ejecución", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+
+            if (!Obj_T2.IsAlive)
+            {
+                Obj_T2.Start();
+            }
+            else
+            {
+                MessageBox.Show("El hilo de agrupar según escolaridad ya se está ejecutando. ID: " + Obj_T2.ManagedThreadId, "Hilo en Ejecución", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         public void Leer_Archivo()
@@ -105,7 +127,7 @@ namespace ProgramacionConHilos
                     DaLine = Sr_Leer.ReadLine();
                 }
                 Sr_Leer.Close();
-                
+
             }
             catch (Exception ex)
             {
@@ -137,7 +159,7 @@ namespace ProgramacionConHilos
 
         private void Llenar_DataGrid_P()
         {
-            double Total_Poblacion = 0;
+            double Total_Poblacion_H = 0, Total_Poblacion_M = 0;
             int Indice_Menor = 0, Indice_Mayor = 0;
 
             //Dtg_Edades_Sexo.Rows.Clear();
@@ -149,19 +171,44 @@ namespace ProgramacionConHilos
             Dtg_Edades_Sexo.Columns.Add("HOMBRES", "HOMBRES");
             Dtg_Edades_Sexo.Columns.Add("MUJERES", "MUJERES");
 
+            Dtg_Edades_Sexo.Columns["EDAD"].DefaultCellStyle.Format = "#,##.##";
             Dtg_Edades_Sexo.Columns["EDAD"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
 
             for (int i = 0; i < Array_Personas.Length; i++)
             {
                 if (Array_Personas[i] != null)
                 {
-                    Dtg_Edades_Sexo.Rows.Add(Array_Personas[i].Edad, Array_Personas[i].Hombres, Array_Personas[i].Mujeres);
-                    if (i == 0)
+                    if (Array_Personas[i].Edad <= 60)
                     {
-                        Indice_Menor = Array_Personas[i].Edad;
+                        Dtg_Edades_Sexo.Rows.Add(Array_Personas[i].Edad, Array_Personas[i].Hombres, Array_Personas[i].Mujeres);
+                        Total_Poblacion_H += Array_Personas[i].Hombres;
+                        Total_Poblacion_M += Array_Personas[i].Mujeres;
                     }
                 }
             }
+            /*
+            Dtg_Edades_Sexo.Rows.Add("", "         ", "");
+            Dtg_Edades_Sexo.Rows.Add("",
+                          "*** TOTAL DE HOMBRES ***",
+                           Total_Poblacion_H);
+            Dtg_Edades_Sexo.Refresh();
+
+            Dtg_Edades_Sexo.Rows.Add("", "         ", "");
+            Dtg_Edades_Sexo.Rows.Add("",
+                          "*** TOTAL DE MUJERES ***",
+                           Total_Poblacion_M);
+            Dtg_Edades_Sexo.Refresh();
+            */
+        }
+
+        private void Llenar_DataGrid_E()
+        {
+
+        }
+
+        private void Llenar_DataGrid_ET()
+        {
+
         }
     }
 }
