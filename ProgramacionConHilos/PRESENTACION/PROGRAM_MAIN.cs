@@ -16,5 +16,15 @@ namespace ProgramacionConHilos
         {
             InitializeComponent();
         }
+
+        private void PROGRAM_MAIN_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void BT_SALIR_Click(object sender, EventArgs e)
+        {
+            
+        }
     }
 }
