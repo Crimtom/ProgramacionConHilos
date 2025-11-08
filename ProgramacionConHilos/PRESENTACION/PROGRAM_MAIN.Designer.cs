@@ -140,6 +140,7 @@
             this.BT_CARGAR.TabIndex = 28;
             this.BT_CARGAR.Text = "CARGAR ARCHIVO";
             this.BT_CARGAR.UseVisualStyleBackColor = true;
+            this.BT_CARGAR.Click += new System.EventHandler(this.BT_CARGAR_Click);
             // 
             // PROGRAM_MAIN
             // 

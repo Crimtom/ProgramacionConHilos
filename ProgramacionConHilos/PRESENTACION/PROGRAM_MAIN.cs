@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -79,6 +81,56 @@ namespace ProgramacionConHilos
             {
                 MessageBox.Show("Se ha producido un error tras intentar cerrar el programa: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }  
+        }
+
+        private void BT_CARGAR_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        public void Leer_Archivo()
+        {
+            string DaLine;
+            try
+            {
+                StreamReader Sr_Leer = new StreamReader(@"C:\PADRON\Proyeccion_2025.txt");
+
+                //  Lee la primera línea del archivo
+                DaLine = Sr_Leer.ReadLine();
+
+                while (DaLine != null)
+                {
+                    Obtener_Datos(DaLine);  //  Lee la siguiente línea del archivo
+                    DaLine = Sr_Leer.ReadLine();
+                }
+                Sr_Leer.Close();
+                
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Se ha producido un error al leer el archivo: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        void Obtener_Datos(String PLinea)
+        {
+            Array_Personas[Indice_Persona] = new CLASE_POBLACION();
+            Array_Personas[Indice_Persona].Edad = int.Parse(PLinea.Substring(0, 3));
+            Array_Personas[Indice_Persona].Hombres = int.Parse(PLinea.Substring(3, 6));
+            Array_Personas[Indice_Persona].Mujeres = int.Parse(PLinea.Substring(9, 6));
+
+            Console.WriteLine(Array_Personas[Indice_Persona].Edad);
+            Console.WriteLine(Array_Personas[Indice_Persona].Hombres);
+            Console.WriteLine(Array_Personas[Indice_Persona].Mujeres);
+
+            if (Array_Personas[Indice_Persona].Hombres == 1)
+            {
+                Can_Hombres += 1;
+            }
+            else
+            {
+                Can_Mujeres += 1;
+            }
+            Indice_Persona += 1;
         }
     }
 }
