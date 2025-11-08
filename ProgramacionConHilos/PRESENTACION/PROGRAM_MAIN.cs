@@ -85,7 +85,8 @@ namespace ProgramacionConHilos
 
         private void BT_CARGAR_Click(object sender, EventArgs e)
         {
-
+            Leer_Archivo();
+            Llenar_DataGrid_P();
         }
 
         public void Leer_Archivo()
@@ -109,6 +110,7 @@ namespace ProgramacionConHilos
             catch (Exception ex)
             {
                 MessageBox.Show("Se ha producido un error al leer el archivo: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Console.WriteLine("Se ha producido un error al leer el archivo: " + ex.Message);
             }
         }
         void Obtener_Datos(String PLinea)
@@ -131,6 +133,35 @@ namespace ProgramacionConHilos
                 Can_Mujeres += 1;
             }
             Indice_Persona += 1;
+        }
+
+        private void Llenar_DataGrid_P()
+        {
+            double Total_Poblacion = 0;
+            int Indice_Menor = 0, Indice_Mayor = 0;
+
+            //Dtg_Edades_Sexo.Rows.Clear();
+            //Dtg_Escolaridad.Rows.Clear();
+            //Dtg_Etareo.Rows.Clear();
+
+            Dtg_Edades_Sexo.Font = new Font("Microsoft Sans Serif", 10);
+            Dtg_Edades_Sexo.Columns.Add("EDAD", "EDAD");
+            Dtg_Edades_Sexo.Columns.Add("HOMBRES", "HOMBRES");
+            Dtg_Edades_Sexo.Columns.Add("MUJERES", "MUJERES");
+
+            Dtg_Edades_Sexo.Columns["EDAD"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleLeft;
+
+            for (int i = 0; i < Array_Personas.Length; i++)
+            {
+                if (Array_Personas[i] != null)
+                {
+                    Dtg_Edades_Sexo.Rows.Add(Array_Personas[i].Edad, Array_Personas[i].Hombres, Array_Personas[i].Mujeres);
+                    if (i == 0)
+                    {
+                        Indice_Menor = Array_Personas[i].Edad;
+                    }
+                }
+            }
         }
     }
 }
