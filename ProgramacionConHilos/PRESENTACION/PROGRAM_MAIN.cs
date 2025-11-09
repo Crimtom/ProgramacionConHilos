@@ -138,9 +138,10 @@ namespace ProgramacionConHilos
         void Obtener_Datos(String PLinea)
         {
             Array_Personas[Indice_Persona] = new CLASE_POBLACION();
-            Array_Personas[Indice_Persona].Edad = int.Parse(PLinea.Substring(0, 3));
-            Array_Personas[Indice_Persona].Hombres = int.Parse(PLinea.Substring(3, 6));
-            Array_Personas[Indice_Persona].Mujeres = int.Parse(PLinea.Substring(9, 6));
+            Array_Personas[Indice_Persona].Edad = int.Parse(PLinea.Substring(0, 2));
+            Array_Personas[Indice_Persona].Hombres = int.Parse(PLinea.Substring(2, 7));
+            Array_Personas[Indice_Persona].Mujeres = int.Parse(PLinea.Substring(9, 7));
+
 
             Console.WriteLine(Array_Personas[Indice_Persona].Edad);
             Console.WriteLine(Array_Personas[Indice_Persona].Hombres);
@@ -203,10 +204,141 @@ namespace ProgramacionConHilos
 
         private void Llenar_DataGrid_E()
         {
+            Dtg_Etareo.Invoke(new Action(() =>
+            {
+                double TotalH = 0, TotalM = 0;
+                double h = 0, m = 0;
+
+                Dtg_Etareo.Font = new Font("Microsoft Sans Serif", 10);
+
+               
+                Dtg_Etareo.Rows.Clear();
+                Dtg_Etareo.Columns.Clear();
+
+                Dtg_Etareo.Columns.Add("Edades", "Edades");
+                Dtg_Etareo.Columns.Add("Hombres", "Hombres");
+                Dtg_Etareo.Columns.Add("Mujeres", "Mujeres");
+                Dtg_Etareo.Columns.Add("Total Grupo", "Total Grupo");
+
+                
+                for (int i = 0; i < Array_Personas.Length; i++)
+                {
+                    if (Array_Personas[i] != null)
+                    {
+                        TotalH += Array_Personas[i].Hombres;
+                        TotalM += Array_Personas[i].Mujeres;
+                    }
+                }
+                Dtg_Etareo.Rows.Add("Total", TotalH, TotalM, (TotalH + TotalM));
+
+
+               
+                h = 0; m = 0;
+
+                for (int i = 0; i < Array_Personas.Length; i++)
+                    if (Array_Personas[i] != null)
+                        if (Array_Personas[i].Edad >= 0 && Array_Personas[i].Edad <= 4)
+                        { h += Array_Personas[i].Hombres; m += Array_Personas[i].Mujeres; }
+
+                Dtg_Etareo.Rows.Add("0-4", h, m, (h + m));
+
+                for (int edad = 0; edad <= 4; edad++)
+                {
+                    for (int i = 0; i < Array_Personas.Length; i++)
+                        if (Array_Personas[i] != null)
+                            if (Array_Personas[i].Edad == edad)
+                                Dtg_Etareo.Rows.Add(edad, Array_Personas[i].Hombres, Array_Personas[i].Mujeres, (Array_Personas[i].Hombres + Array_Personas[i].Mujeres));
+                }
+
+
+              
+                h = 0; m = 0;
+                for (int i = 0; i < Array_Personas.Length; i++)
+                    if (Array_Personas[i] != null)
+                        if (Array_Personas[i].Edad >= 5 && Array_Personas[i].Edad <= 9)
+                        { h += Array_Personas[i].Hombres; m += Array_Personas[i].Mujeres; }
+
+                Dtg_Etareo.Rows.Add("5-9", h, m, (h + m));
+
+                for (int edad = 5; edad <= 9; edad++)
+                {
+                    for (int i = 0; i < Array_Personas.Length; i++)
+                        if (Array_Personas[i] != null)
+                            if (Array_Personas[i].Edad == edad)
+                                Dtg_Etareo.Rows.Add(edad, Array_Personas[i].Hombres, Array_Personas[i].Mujeres, (Array_Personas[i].Hombres + Array_Personas[i].Mujeres));
+                }
+
+
+               
+                h = 0; m = 0;
+                for (int i = 0; i < Array_Personas.Length; i++)
+                    if (Array_Personas[i] != null)
+                        if (Array_Personas[i].Edad >= 10 && Array_Personas[i].Edad <= 14)
+                        { h += Array_Personas[i].Hombres; m += Array_Personas[i].Mujeres; }
+
+                Dtg_Etareo.Rows.Add("10-14", h, m, (h + m));
+
+                for (int edad = 10; edad <= 14; edad++)
+                {
+                    for (int i = 0; i < Array_Personas.Length; i++)
+                        if (Array_Personas[i] != null)
+                            if (Array_Personas[i].Edad == edad)
+                                Dtg_Etareo.Rows.Add(edad, Array_Personas[i].Hombres, Array_Personas[i].Mujeres, (Array_Personas[i].Hombres + Array_Personas[i].Mujeres));
+                }
+
+
+               
+                h = 0; m = 0;
+                for (int i = 0; i < Array_Personas.Length; i++)
+                    if (Array_Personas[i] != null)
+                        if (Array_Personas[i].Edad >= 15 && Array_Personas[i].Edad <= 19)
+                        { h += Array_Personas[i].Hombres; m += Array_Personas[i].Mujeres; }
+
+                Dtg_Etareo.Rows.Add("15-19", h, m, (h + m));
+
+                for (int edad = 15; edad <= 19; edad++)
+                {
+                    for (int i = 0; i < Array_Personas.Length; i++)
+                        if (Array_Personas[i] != null)
+                            if (Array_Personas[i].Edad == edad)
+                                Dtg_Etareo.Rows.Add(edad, Array_Personas[i].Hombres, Array_Personas[i].Mujeres, (Array_Personas[i].Hombres + Array_Personas[i].Mujeres));
+                }
+
+
+                
+                for (int i = 0; i < Array_Personas.Length; i++)
+                    if (Array_Personas[i] != null)
+                        if (Array_Personas[i].Edad == 20)
+                            Dtg_Etareo.Rows.Add("20-49", Array_Personas[i].Hombres, Array_Personas[i].Mujeres, (Array_Personas[i].Hombres + Array_Personas[i].Mujeres));
+
+             
+                for (int i = 0; i < Array_Personas.Length; i++)
+                    if (Array_Personas[i] != null)
+                        if (Array_Personas[i].Edad == 50)
+                            Dtg_Etareo.Rows.Add("50-59", Array_Personas[i].Hombres, Array_Personas[i].Mujeres, (Array_Personas[i].Hombres + Array_Personas[i].Mujeres));
+
+               
+                for (int i = 0; i < Array_Personas.Length; i++)
+                    if (Array_Personas[i] != null)
+                        if (Array_Personas[i].Edad == 60)
+                            Dtg_Etareo.Rows.Add("60", Array_Personas[i].Hombres, Array_Personas[i].Mujeres, (Array_Personas[i].Hombres + Array_Personas[i].Mujeres));
+
+                Dtg_Etareo.Refresh();
+            }));
+
+
+
+
+
 
         }
 
         private void Llenar_DataGrid_ET()
+        {
+
+        }
+
+        private void Dtg_Etareo_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }

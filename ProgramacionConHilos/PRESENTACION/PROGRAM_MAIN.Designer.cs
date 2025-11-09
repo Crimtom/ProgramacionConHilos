@@ -97,6 +97,7 @@
             this.Dtg_Etareo.RowHeadersWidth = 62;
             this.Dtg_Etareo.Size = new System.Drawing.Size(372, 464);
             this.Dtg_Etareo.TabIndex = 23;
+            this.Dtg_Etareo.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Dtg_Etareo_CellContentClick);
             // 
             // LAB_ESCOLARIDAD
             // 
