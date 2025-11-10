@@ -335,6 +335,61 @@ namespace ProgramacionConHilos
 
         private void Llenar_DataGrid_ET()
         {
+            try
+            {
+                Dtg_Escolaridad.Invoke(new Action(() =>
+                {
+                    Dtg_Escolaridad.Font = new Font("Microsoft Sans Serif", 10);
+
+                    Dtg_Escolaridad.Rows.Clear();
+                    Dtg_Escolaridad.Columns.Clear();
+
+                    Dtg_Escolaridad.Columns.Add("NivelEducativo", "Nivel Educativo");
+                    Dtg_Escolaridad.Columns.Add("Hombres", "Hombres");
+                    Dtg_Escolaridad.Columns.Add("Mujeres", "Mujeres");
+                    Dtg_Escolaridad.Columns.Add("Total", "Total");
+
+
+                    string[] niveles = {
+                "Sin Escolaridad",
+                "Primaria Incompleta",
+                "Primaria Completa",
+                "Secundaria Incompleta",
+                "Secundaria Completa",
+                "Universitaria Incompleta",
+                "Universitaria Completa"
+            };
+
+                    int[] totalHombres = new int[7];
+                    int[] totalMujeres = new int[7];
+
+
+                    for (int i = 0; i < Array_Personas.Length; i++)
+                    {
+                        if (Array_Personas[i] != null)
+                        {
+                            for (int n = 0; n < 7; n++)
+                            {
+                                totalHombres[n] += Array_Personas[i].Hombres * Array_Personas[i].Nivel_Educacion[n];
+                                totalMujeres[n] += Array_Personas[i].Mujeres * Array_Personas[i].Nivel_Educacion[n];
+                            }
+                        }
+                    }
+
+
+                    for (int n = 0; n < 7; n++)
+                    {
+                        int total = totalHombres[n] + totalMujeres[n];
+                        Dtg_Escolaridad.Rows.Add(niveles[n], totalHombres[n], totalMujeres[n], total);
+                    }
+
+                    Dtg_Escolaridad.Refresh();
+                }));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error en hilo 5 (Dtg_Escolaridad): " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
         }
 
